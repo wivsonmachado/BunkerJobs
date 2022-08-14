@@ -1,0 +1,11 @@
+<div class="container">
+    <h1 class="mb-3">Atualizar informacoes</h1>
+    <form action="/home" th:object="${operation}" th:action="@{/update/{id}(id=${operation.id})}" method="post">
+
+        <div th:replace="~{form :: form}"></div>
+
+        <div class="col-12 mt-2">
+            <button type="submit" class="btn btn-dark">Atualizar</button>
+        </div>
+    </form>
+</div>
