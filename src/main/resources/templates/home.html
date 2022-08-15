@@ -32,10 +32,10 @@
         
         <tr th:each="op : ${bunkerOperations}">
             <th scope="row"></th>
-            <td><span th:text="${#dates.format(op.dataOperacao, 'dd/MM/yyyy')}"></td>
+            <td><span th:text="${#dates.format(op.dataOperacao, 'dd/MM/yyyy')}"></span></td>
             <td><span th:text="${op.navio}"></span></td>
             <td><span th:text="${op.cfn}"></span></td>
-            <td><span th:text="${op.fornecido_por}"></span></td>
+            <td><span th:text="${op.fornecidoPor}"></span></td>
             <td><span th:text="${op.fornecedor}"></span></td>
             <td><span th:text="${#numbers.formatDecimal(op.recebido,3, 'POINT', 0, 'COMMA')}"></span></td>
             <td><span th:text="${#numbers.formatDecimal(op.fornecido,3, 'POINT', 0, 'COMMA')}"></span></td>

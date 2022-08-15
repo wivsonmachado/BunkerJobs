@@ -11,4 +11,70 @@
         <input class="form-control" type="text" th:field="*{navio}"  id="nomeNavio" placeholder="Nome do navio" >
     </div>
 
+	
+    <div class="form-group">
+        <label for="cfn" class="form-label">CFN</label>
+        <input class="form-control" type="text" th:field="*{cfn}"  id="cfn" placeholder="Número do CFN" >
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="fornecidoPor" class="form-label">Fornecido Por</label>
+        <input class="form-control" type="text" th:field="*{fornecidoPor}"  id="fornecidoPor" placeholder="Nome do navio fornecedor" >
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="fornecedor" class="form-label">Fornecedor</label>
+        <input class="form-control" type="text" th:field="*{fornecedor}"  id="fornecedor" placeholder="Nome do fornecedor" >
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="recebido" class="form-label">Recebido</label>
+        <input class="form-control" type="number" th:field="*{recebido}"  id="recebido" placeholder="Quantidade recebida em litros - sem pontos" >
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="fornecido" class="form-label">Fornecido</label>
+        <input class="form-control" type="number" th:field="*{fornecido}"  id="fornecido" placeholder="Quantidade fornecida em litros - sem pontos" >
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="diferenca" class="form-label">Diferença</label>
+        <input class="form-control" type="number" th:field="*{diferenca}"  id="diferenca" placeholder="Diferença entre recebido e fornecido" >
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="porcentagem" class="form-label">Porcentagem</label>
+        <input class="form-control" type="number" th:field="*{porcentagem}"  id="porcentagem" placeholder="Diferença em porcentagem" >
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="local" class="form-label">Local</label>
+        <input class="form-control" type="text" th:field="*{localidade}"  id="local" placeholder="Local da operação" >
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="cliente" class="form-label">Cliente</label>
+        <input class="form-control" type="text" th:field="*{cliente}"  id="cliente" placeholder="Nome do cliente" >
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="inicio" class="form-label">Início da Operação</label>
+        <input class="form-control" type="datetime-local" th:field="*{inicio}"  id="inicio">
+    </div>
+	
+	
+    <div class="form-group">
+        <label for="fim" class="form-label">Fim da Operação</label>
+        <input class="form-control" type="datetime-local" th:field="*{fim}"  id="fim" >
+    </div>
+	
 </div>

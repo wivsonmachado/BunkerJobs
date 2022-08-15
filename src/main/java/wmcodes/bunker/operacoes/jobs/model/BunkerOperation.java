@@ -1,8 +1,9 @@
 package wmcodes.bunker.operacoes.jobs.model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +19,6 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-@Table(name="LISTAOP")
 public class BunkerOperation {
 
 	@Id
@@ -32,7 +32,8 @@ public class BunkerOperation {
 	
 	private String cfn;
 	
-	private String fornecido_por;
+	@Column(name="fornecido_por")
+	private String fornecidoPor;
 	
 	private String fornecedor;
 	

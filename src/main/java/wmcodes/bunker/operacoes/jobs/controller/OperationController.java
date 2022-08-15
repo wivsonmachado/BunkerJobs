@@ -18,6 +18,18 @@ public class OperationController {
 
 	@Autowired
 	BunkerOperationRepository bunkerOperationRepository;
+	
+	
+	@PostMapping("/add")
+	public String novo(@Valid BunkerOperation operation, BindingResult result) {
+		if(result.hasFieldErrors()) {
+			return "redirect:/form";
+		}
+		
+		bunkerOperationRepository.save(operation);
+		
+		return "redirect:/home";
+	}
 
 	@GetMapping("form/{id}")
 	public String editForm(Model model, @PathVariable(name = "id") int id) {
@@ -36,7 +48,7 @@ public class OperationController {
 	public String update(@Valid BunkerOperation operation, BindingResult result, @PathVariable int id ) {
 		
 		if(result.hasErrors()) {
-			return "redirect:/editForm";
+			return "redirect:/form";
 		}
 		
 		bunkerOperationRepository.save(operation);		
