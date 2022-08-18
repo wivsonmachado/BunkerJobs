@@ -1,5 +1,7 @@
 package wmcodes.bunker.operacoes.jobs.controller;
 
+import java.sql.Timestamp;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,17 @@ public class OperationController {
 	@Autowired
 	BunkerOperationRepository bunkerOperationRepository;
 	
+	@GetMapping("/form")
+    public String operationForm(Model model, BunkerOperation operation) {
+		model.addAttribute("operation", operation);
+        return "addOperationForm";
+    }
+	
 	
 	@PostMapping("/add")
 	public String novo(@Valid BunkerOperation operation, BindingResult result) {
 		if(result.hasFieldErrors()) {
-			return "redirect:/form";
+			formattInputDateTime(operation, result);
 		}
 		
 		bunkerOperationRepository.save(operation);
@@ -45,14 +53,26 @@ public class OperationController {
 	}
 	
 	@PostMapping("update/{id}")
-	public String update(@Valid BunkerOperation operation, BindingResult result, @PathVariable int id ) {
+	public String update(@Valid BunkerOperation operation, BindingResult result, @PathVariable int id ) {		
 		
 		if(result.hasErrors()) {
-			return "redirect:/form";
-		}
+			formattInputDateTime(operation, result);
+		}		
 		
 		bunkerOperationRepository.save(operation);		
 		return "redirect:/home";
 	}
 	
+	private void formattInputDateTime(BunkerOperation operation, BindingResult result) {
+		String dateTimeArray[] = new String[2];		
+		String dateTimeRaw = result.getFieldValue("inicio").toString();
+		dateTimeArray = dateTimeRaw.split("T");
+		Timestamp dateTimeFormatted = Timestamp.valueOf(dateTimeArray[0] + " " + dateTimeArray[1] + ":00");
+		operation.setInicio(dateTimeFormatted);
+		
+		dateTimeRaw = result.getFieldValue("fim").toString();
+		dateTimeArray = dateTimeRaw.split("T");
+		dateTimeFormatted = Timestamp.valueOf(dateTimeArray[0] + " " + dateTimeArray[1] + ":00");
+		operation.setFim(dateTimeFormatted);
+	}
 }

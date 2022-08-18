@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Bunker Operation </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"  crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"  rel="stylesheet">
+</head>
+
+
+<body>
 <div th:fragment="form">
 
 
@@ -32,25 +43,25 @@
 	
     <div class="form-group">
         <label for="recebido" class="form-label">Recebido</label>
-        <input class="form-control" type="number" th:field="*{recebido}"  id="recebido" placeholder="Quantidade recebida em litros - sem pontos" >
+        <input class="form-control" type="number" th:field="*{recebido}" step="0.01"  id="recebido" placeholder="Quantidade recebida em litros - sem pontos" >
     </div>
 	
 	
     <div class="form-group">
         <label for="fornecido" class="form-label">Fornecido</label>
-        <input class="form-control" type="number" th:field="*{fornecido}"  id="fornecido" placeholder="Quantidade fornecida em litros - sem pontos" >
+        <input class="form-control" type="number" th:field="*{fornecido}" step="0.01"  id="fornecido" placeholder="Quantidade fornecida em litros - sem pontos" >
     </div>
 	
 	
     <div class="form-group">
         <label for="diferenca" class="form-label">Diferença</label>
-        <input class="form-control" type="number" th:field="*{diferenca}"  id="diferenca" placeholder="Diferença entre recebido e fornecido" >
+        <input class="form-control" type="number" th:field="*{diferenca}" step="0.01"  id="diferenca" placeholder="Diferença entre recebido e fornecido" >
     </div>
 	
 	
     <div class="form-group">
         <label for="porcentagem" class="form-label">Porcentagem</label>
-        <input class="form-control" type="number" th:field="*{porcentagem}"  id="porcentagem" placeholder="Diferença em porcentagem" >
+        <input class="form-control" type="number" th:field="*{porcentagem}" step="0.01"  id="porcentagem" placeholder="Diferença em porcentagem" >
     </div>
 	
 	
@@ -78,3 +89,6 @@
     </div>
 	
 </div>
+
+</body>
+</html>
