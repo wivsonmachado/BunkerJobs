@@ -63,6 +63,19 @@ public class OperationController {
 		return "redirect:/home";
 	}
 	
+	@GetMapping("delete/{id}")
+	public String delete(Model model, @PathVariable(name = "id") int id) {
+		
+		BunkerOperation operation = bunkerOperationRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		
+		bunkerOperationRepository.delete(operation);
+		
+		return "redirect:/home";
+		
+	
+	}
+	
 	private void formattInputDateTime(BunkerOperation operation, BindingResult result) {
 		String dateTimeArray[] = new String[2];		
 		String dateTimeRaw = result.getFieldValue("inicio").toString();
