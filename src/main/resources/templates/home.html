@@ -32,7 +32,7 @@
             <th scope="col"></th>
         </tr>
         
-        <tr th:each="op : ${bunkerOperations}">
+        <tr th:each="op : ${listOperations}">
             <th scope="row"></th>
             <td><span th:text="${#dates.format(op.dataOperacao, 'dd/MM/yyyy')}"></span></td>
             <td><span th:text="${op.navio}"></span></td>
@@ -56,6 +56,27 @@
         </tr>
     </table>
     
+    <div th:if = "${totalPages > 1}" class="h-100 d-flex align-items-center justify-content-center">
+    	<div>
+    		<div>
+    			Total de linhas: [[${totalItems}]]
+    		</div>
+	    		<nav>
+		    		<ul class="pagination">
+		    			<li class="page-item"><a class="page-link" th:if = "${currentPage > 1 }" th:href ="@{'/page/' + ${currentPage - 1}}">Página Anterior</a></li>
+		    			<li class="page-item page-link disable" th:unless="${currentPage > 1}">Página Anterior</li>
+		    			<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+		    				<li class="page-item"><a class="page-link" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a></li> 
+		    				<li class="page-item page-link disable" th:unless="${currentPage != i}">[[${i}]]</li>&nbsp; &nbsp;
+		    			</span>
+		    			<li class="page-item"><a class="page-link" th:if = "${currentPage < totalPages }" th:href ="@{'/page/' + ${currentPage + 1}}">Próxima Página</a></li>
+		    			<li class="page-item page-link disable" th:unless="${currentPage < totalPages}">Próxima Página</li>
+		    			<li class="page-item"><a class="page-link" th:if = "${currentPage < totalPages }" th:href ="@{'/page/' + ${totalPages}}">Última Página</a></li>
+		    			<li class="page-item page-link disable" th:unless="${currentPage < totalPages}">Última Página</li>
+		    		</ul>
+	    		</nav>
+    	</div>    
+    </div>
 
 </body>
 </html>

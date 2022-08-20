@@ -9,20 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import wmcodes.bunker.operacoes.jobs.model.BunkerOperation;
-import wmcodes.bunker.operacoes.jobs.model.repository.BunkerOperationRepository;
+import wmcodes.bunker.operacoes.jobs.repository.BunkerOperationRepository;
+import wmcodes.bunker.operacoes.jobs.service.OperationsService;
 
 @Controller
 public class HomeController {
-
-	@Autowired
-	private BunkerOperationRepository bunkerOperationReposity;
-	
-	
-	@GetMapping("/home")
-	public String home(Model model) {
-		List<BunkerOperation> bunkerOperations = bunkerOperationReposity.findAll(Sort.by(Sort.Direction.ASC, "dataOperacao"));
-	
-		model.addAttribute("bunkerOperations", bunkerOperations);
-		return "home";
-	}
 }

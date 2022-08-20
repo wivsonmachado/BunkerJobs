@@ -1,4 +1,4 @@
-package wmcodes.bunker.operacoes.jobs.model.repository;
+package wmcodes.bunker.operacoes.jobs.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
