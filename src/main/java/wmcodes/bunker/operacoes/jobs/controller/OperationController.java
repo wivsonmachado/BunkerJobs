@@ -27,68 +27,45 @@ public class OperationController {
 	@GetMapping("/home")
 	public String home(Model model) {
 		return findPaginated(1, model);
-	}
-	
+	}	
 	
 	@GetMapping("/form")
     public String operationForm(Model model, BunkerOperation operation) {
 		model.addAttribute("operation", operation);
         return "addOperationForm";
-    }
+    }	
 	
+	@PostMapping("/add")
+	public String novo(@Valid BunkerOperation operation, BindingResult result) {
+		operationsService.operationAdd(operation, result);		
+		return "redirect:/home";
+	}
+
+	@GetMapping("form/{id}")
+	public String editForm(Model model, @PathVariable(value = "id") int id) {		
+		BunkerOperation operation = operationsService.getOperationById(id);
+		model.addAttribute("operation", operation);
+		
+		return "editForm";	
+	}
 	
-//	@PostMapping("/add")
-//	public String novo(@Valid BunkerOperation operation, BindingResult result) {
-//		if(result.hasFieldErrors()) {
-//			formattInputDateTime(operation, result);
-//		}
-//		
-//		bunkerOperationRepository.save(operation);
-//		
-//		return "redirect:/home";
-//	}
-//
-//	@GetMapping("form/{id}")
-//	public String editForm(Model model, @PathVariable(name = "id") int id) {
-//		
-//		BunkerOperation operation = bunkerOperationRepository.findById(id)
-//				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//		
-//		model.addAttribute("operation", operation);
-//		
-//		return "editForm";
-//		
-//	
-//	}
+	@PostMapping("update/{id}")
+	public String update(@Valid BunkerOperation operation, BindingResult result, @PathVariable int id ) {		
+		operationsService.operationAdd(operation, result);	
+		return "redirect:/home";
+	}
 	
-//	@PostMapping("update/{id}")
-//	public String update(@Valid BunkerOperation operation, BindingResult result, @PathVariable int id ) {		
-//		
-//		if(result.hasErrors()) {
-//			formattInputDateTime(operation, result);
-//		}		
-//		
-//		bunkerOperationRepository.save(operation);		
-//		return "redirect:/home";
-//	}
-//	
-//	@GetMapping("delete/{id}")
-//	public String delete(Model model, @PathVariable(name = "id") int id) {
-//		
-//		BunkerOperation operation = bunkerOperationRepository.findById(id)
-//				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//		
-//		bunkerOperationRepository.delete(operation);
-//		
-//		return "redirect:/home";
-//		
-//	
-//	}
+	@GetMapping("delete/{id}")
+	public String delete(@PathVariable (value = "id") int id) {
+		operationsService.delete(id);		
+		return "redirect:/home";
+	}
+	
 	
 	
 	@GetMapping("/page/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Model model ) {
-		int PageSize = 15;
+		int PageSize = 12;
 		Page<BunkerOperation> page = operationsService.findPaginated(pageNo, PageSize);
 		List<BunkerOperation> pageList = page.getContent();
 		
@@ -100,16 +77,5 @@ public class OperationController {
 		return "home";
 	}
 	
-	private void formattInputDateTime(BunkerOperation operation, BindingResult result) {
-		String dateTimeArray[] = new String[2];		
-		String dateTimeRaw = result.getFieldValue("inicio").toString();
-		dateTimeArray = dateTimeRaw.split("T");
-		Timestamp dateTimeFormatted = Timestamp.valueOf(dateTimeArray[0] + " " + dateTimeArray[1] + ":00");
-		operation.setInicio(dateTimeFormatted);
-		
-		dateTimeRaw = result.getFieldValue("fim").toString();
-		dateTimeArray = dateTimeRaw.split("T");
-		dateTimeFormatted = Timestamp.valueOf(dateTimeArray[0] + " " + dateTimeArray[1] + ":00");
-		operation.setFim(dateTimeFormatted);
-	}
+	
 }

@@ -49,9 +49,9 @@
             <td><span th:text="${op.cliente}"></span></td>
             <td><span th:text="${#dates.format(op.inicio, 'dd/MM/yyyy HH:mm')}"></span></td>
             <td><span th:text="${#dates.format(op.fim, 'dd/MM/yyyy HH:mm')}"></span></td>
-            <td class="buttons "><a th:href="@{form/{id}(id=${op.id})}"
+            <td class="buttons "><a th:href="@{/form/{id}(id=${op.id})}"
                                     th:method="get" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                <a th:href="@{delete/{id}(id=${op.id})}" th:method="delete"
+                <a th:href="@{/delete/{id}(id=${op.id})}" th:method="delete"
                    class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
         </tr>
     </table>
