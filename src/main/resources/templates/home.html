@@ -16,19 +16,19 @@
 <table class="table table-light" style="font-size: 14px;">
 		<tr class="table-dark">
             <th></th>
-            <th scope="col">Data</th>
-            <th scope="col">Navio</th>
-            <th scope="col">CFN</th>
-            <th scope="col">Fornecido Por</th>
-            <th scope="col">Fornecedor</th>
-            <th scope="col">Recebido</th>
-            <th scope="col">Fornecido</th>
-            <th scope="col">Diferença</th>
-            <th scope="col">Porcentagem</th>
-            <th scope="col">Localidade</th>
-            <th scope="col">Cliente</th>
-            <th scope="col">Início Operação</th>
-            <th scope="col">Fim Operação</th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=dataOperacao&sortDir=' + ${reverseSortDir}}">Data</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=navio&sortDir=' + ${reverseSortDir}}">Navio</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=cfn&sortDir=' + ${reverseSortDir}}">CFN</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=fornecidoPor&sortDir=' + ${reverseSortDir}}">Fornecido Por</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=fornecedor&sortDir=' + ${reverseSortDir}}">Fornecedor</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=recebido&sortDir=' + ${reverseSortDir}}">Recebido</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=fornecido&sortDir=' + ${reverseSortDir}}">Fornecido</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=diferenca&sortDir=' + ${reverseSortDir}}">Diferença</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=porcentagem&sortDir=' + ${reverseSortDir}}">Porcentagem</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=localidade&sortDir=' + ${reverseSortDir}}">Localidade</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=cliente&sortDir=' + ${reverseSortDir}}">Cliente</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=inicio&sortDir=' + ${reverseSortDir}}">Início Operação</a></th>
+            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=fim&sortDir=' + ${reverseSortDir}}">Fim Operação</a></th>
             <th scope="col"></th>
         </tr>
         
@@ -63,15 +63,15 @@
     		</div>
 	    		<nav>
 		    		<ul class="pagination">
-		    			<li class="page-item"><a class="page-link" th:if = "${currentPage > 1 }" th:href ="@{'/page/' + ${currentPage - 1}}">Página Anterior</a></li>
+		    			<li class="page-item"><a class="page-link" th:if = "${currentPage > 1 }" th:href="@{'/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Página Anterior</a></li>
 		    			<li class="page-item page-link disable" th:unless="${currentPage > 1}">Página Anterior</li>
 		    			<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-		    				<li class="page-item"><a class="page-link" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a></li> 
+		    				<li class="page-item"><a class="page-link" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a></li> 
 		    				<li class="page-item page-link disable" th:unless="${currentPage != i}">[[${i}]]</li>&nbsp; &nbsp;
 		    			</span>
-		    			<li class="page-item"><a class="page-link" th:if = "${currentPage < totalPages }" th:href ="@{'/page/' + ${currentPage + 1}}">Próxima Página</a></li>
+		    			<li class="page-item"><a class="page-link" th:if = "${currentPage < totalPages }" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Próxima Página</a></li>
 		    			<li class="page-item page-link disable" th:unless="${currentPage < totalPages}">Próxima Página</li>
-		    			<li class="page-item"><a class="page-link" th:if = "${currentPage < totalPages }" th:href ="@{'/page/' + ${totalPages}}">Última Página</a></li>
+		    			<li class="page-item"><a class="page-link" th:if = "${currentPage < totalPages }" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Última Página</a></li>
 		    			<li class="page-item page-link disable" th:unless="${currentPage < totalPages}">Última Página</li>
 		    		</ul>
 	    		</nav>

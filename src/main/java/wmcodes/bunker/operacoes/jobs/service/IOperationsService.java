@@ -13,6 +13,6 @@ public interface IOperationsService {
 	void operationAdd(BunkerOperation operation, BindingResult result);
 	BunkerOperation getOperationById(int id);
 	void delete(int id);
-	Page<BunkerOperation> findPaginated(int pageNo, int pageSize);
+	Page<BunkerOperation> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 
 }
