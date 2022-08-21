@@ -1,14 +1,13 @@
 package wmcodes.bunker.operacoes.jobs.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.RuntimeCryptoException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -20,12 +19,28 @@ public class OperationsService implements IOperationsService{
 
 	@Autowired
 	BunkerOperationRepository bunkerOperationRepository;
+
+	@Override
+	public List<BunkerOperation> findAllOperation() {
+		return bunkerOperationRepository.findAll();
+	}	
 	
 	@Override
 	public void operationAdd(BunkerOperation operation, BindingResult result) {		
 		if(result.hasFieldErrors()) {
 			formattInputDateTime(operation, result);
 		}
+		
+		BigDecimal recebido = new BigDecimal(result.getFieldValue("recebido").toString());
+		BigDecimal fornecido = new BigDecimal(result.getFieldValue("fornecido").toString());
+		BigDecimal diferenca = recebido.subtract(fornecido);
+		
+		Double porcentagem = diferenca.divide(recebido, 2, RoundingMode.HALF_EVEN).doubleValue() * 100;
+		
+		operation.setDiferenca(diferenca);
+		operation.setPorcentagem(porcentagem);
+		
+		
 		
 		this.bunkerOperationRepository.save(operation);
 	}
@@ -49,14 +64,6 @@ public class OperationsService implements IOperationsService{
 		this.bunkerOperationRepository.deleteById(id);
 	}
 	
-	@Override
-	public Page<BunkerOperation> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
-		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
-			Sort.by(sortField).descending();		
-		
-		Pageable paging = PageRequest.of(pageNo - 1, pageSize, sort);		
-		return this.bunkerOperationRepository.findAll(paging);
-	}
 
 	private void formattInputDateTime(BunkerOperation operation, BindingResult result) {
 		String dateTimeArray[] = new String[2];		
@@ -69,7 +76,8 @@ public class OperationsService implements IOperationsService{
 		dateTimeArray = dateTimeRaw.split("T");
 		dateTimeFormatted = Timestamp.valueOf(dateTimeArray[0] + " " + dateTimeArray[1] + ":00");
 		operation.setFim(dateTimeFormatted);
-	}	
+	}
+
 	
 
 }

@@ -2,81 +2,91 @@
 <html>
 <head>
 <title> Bunker Operation </title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"  crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"  rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
 </head>
 
 
 <body>
 
-    <a href="/form"><button class="btn btn-dark">Adicionar
-        operação</button></a>
+<h1 class="h1 text-center text-uppercase">operações bunker</h1>
 
-<table class="table table-light" style="font-size: 14px;">
-		<tr class="table-dark">
+
+<table class="table table-striped" id="sortTable" style="font-size: 14px; max-width:640px;" >
+	<thead>
+		<tr class="table-light">
             <th></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=dataOperacao&sortDir=' + ${reverseSortDir}}">Data</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=navio&sortDir=' + ${reverseSortDir}}">Navio</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=cfn&sortDir=' + ${reverseSortDir}}">CFN</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=fornecidoPor&sortDir=' + ${reverseSortDir}}">Fornecido Por</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=fornecedor&sortDir=' + ${reverseSortDir}}">Fornecedor</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=recebido&sortDir=' + ${reverseSortDir}}">Recebido</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=fornecido&sortDir=' + ${reverseSortDir}}">Fornecido</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=diferenca&sortDir=' + ${reverseSortDir}}">Diferença</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=porcentagem&sortDir=' + ${reverseSortDir}}">Porcentagem</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=localidade&sortDir=' + ${reverseSortDir}}">Localidade</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=cliente&sortDir=' + ${reverseSortDir}}">Cliente</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=inicio&sortDir=' + ${reverseSortDir}}">Início Operação</a></th>
-            <th scope="col"><a th:href="@{'/page/' + ${currentPage} + '?sortField=fim&sortDir=' + ${reverseSortDir}}">Fim Operação</a></th>
+            <th scope="col">Data</th>
+            <th scope="col">Navio</th>
+            <th scope="col">CFN</th>
+            <th scope="col">Fornecido Por</th>
+            <th scope="col">Fornecedor</th>
+            <th scope="col">Recebido</th>
+            <th scope="col">Fornecido</th>
+            <th scope="col">Diferença</th>
+            <th scope="col">Porcentagem</th>
+            <th scope="col">Localidade</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Início Operação</th>
+            <th scope="col">Fim Operação</th>
             <th scope="col"></th>
         </tr>
-        
+	</thead>
+	</tbody>  
         <tr th:each="op : ${listOperations}">
             <th scope="row"></th>
-            <td><span th:text="${#dates.format(op.dataOperacao, 'dd/MM/yyyy')}"></span></td>
+            <td><span th:text="${op.dataOperacao}"></span></td>
             <td><span th:text="${op.navio}"></span></td>
             <td><span th:text="${op.cfn}"></span></td>
             <td><span th:text="${op.fornecidoPor}"></span></td>
             <td><span th:text="${op.fornecedor}"></span></td>
-            <td><span th:text="${#numbers.formatDecimal(op.recebido,3, 'POINT', 0, 'COMMA')}"></span></td>
-            <td><span th:text="${#numbers.formatDecimal(op.fornecido,3, 'POINT', 0, 'COMMA')}"></span></td>
-            <td><span th:text="${#numbers.formatDecimal(op.diferenca,3, 'POINT', 0, 'COMMA')}"></span></td>
-            <th:block th:with="percent=${op.recebido} == 0 ? 0 : (${op.recebido - op.fornecido} / ${op.recebido})">
-            <td><span th:text="${#numbers.formatPercent(percent, 1, 2)}"></span></td>
+            <td><span th:text="${op.recebido}"></span></td>
+            <td><span th:text="${op.fornecido}"></span></td>
+            <td><span th:text="${op.diferenca}"></span></td>
+            <th:block th:with="percent=${op.recebido} == 0 ? 0 : ${op.recebido - op.fornecido} / ${op.recebido} * 100">
+            <td><span th:text="${percent} + '%'"></span></td>
             </th:block>
             <td><span th:text="${op.localidade}"></span></td>
             <td><span th:text="${op.cliente}"></span></td>
-            <td><span th:text="${#dates.format(op.inicio, 'dd/MM/yyyy HH:mm')}"></span></td>
-            <td><span th:text="${#dates.format(op.fim, 'dd/MM/yyyy HH:mm')}"></span></td>
+            <td><span th:text="${op.inicio}"></span></td>
+            <td><span th:text="${op.fim}"></span></td>
             <td class="buttons "><a th:href="@{/form/{id}(id=${op.id})}"
                                     th:method="get" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
                 <a th:href="@{/delete/{id}(id=${op.id})}" th:method="delete"
                    class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
         </tr>
+    </tbody>
     </table>
-    
-    <div th:if = "${totalPages > 1}" class="h-100 d-flex align-items-center justify-content-center">
-    	<div>
-    		<div>
-    			Total de linhas: [[${totalItems}]]
-    		</div>
-	    		<nav>
-		    		<ul class="pagination">
-		    			<li class="page-item"><a class="page-link" th:if = "${currentPage > 1 }" th:href="@{'/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Página Anterior</a></li>
-		    			<li class="page-item page-link disable" th:unless="${currentPage > 1}">Página Anterior</li>
-		    			<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-		    				<li class="page-item"><a class="page-link" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a></li> 
-		    				<li class="page-item page-link disable" th:unless="${currentPage != i}">[[${i}]]</li>&nbsp; &nbsp;
-		    			</span>
-		    			<li class="page-item"><a class="page-link" th:if = "${currentPage < totalPages }" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Próxima Página</a></li>
-		    			<li class="page-item page-link disable" th:unless="${currentPage < totalPages}">Próxima Página</li>
-		    			<li class="page-item"><a class="page-link" th:if = "${currentPage < totalPages }" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Última Página</a></li>
-		    			<li class="page-item page-link disable" th:unless="${currentPage < totalPages}">Última Página</li>
-		    		</ul>
-	    		</nav>
-    	</div>    
-    </div>
-
+<script>
+	$('#sortTable').DataTable({
+		"language": {
+			"decimal": ",",
+	    "emptyTable":     "Não existe nenhuma operação registrada",
+	    "info":           "Exibindo _START_ até _END_ de _TOTAL_ operações",
+	    "infoEmpty":      "Exibindo 0 até 0 de 0 operações",
+	    "infoFiltered":   "(Filtrado de _MAX_ operações)",
+	    "thousands":      ".",
+	    "lengthMenu":     "Exibir _MENU_ operações",
+	    "loadingRecords": "Carregando...",
+	    "search":         "Buscar:",
+	    "zeroRecords":    "Nenhuma operação encontrada",
+	    "paginate": {
+	        "first":      "Primeira",
+	        "last":       "Última",
+	        "next":       "Próxima",
+	        "previous":   "Anterior"
+	    }}});
+</script>
+    <a href="/form"><button class="btn btn-dark">Adicionar
+        operação</button></a>
 </body>
 </html>
