@@ -23,8 +23,7 @@
 
 <table class="table table-striped" id="sortTable" style="font-size: 14px; max-width:640px;" >
 	<thead>
-		<tr class="table-light">
-            <th></th>
+		<tr class="table-light">           
             <th scope="col">Data</th>
             <th scope="col">Navio</th>
             <th scope="col">CFN</th>
@@ -41,9 +40,8 @@
             <th scope="col"></th>
         </tr>
 	</thead>
-	</tbody>  
-        <tr th:each="op : ${listOperations}">
-            <th scope="row"></th>
+	</tbody> 
+        <tr  th:each="op : ${listOperations}">
             <td><span th:text="${op.dataOperacao}"></span></td>
             <td><span th:text="${op.navio}"></span></td>
             <td><span th:text="${op.cfn}"></span></td>
@@ -66,27 +64,8 @@
         </tr>
     </tbody>
     </table>
-<script>
-	$('#sortTable').DataTable({
-		"language": {
-			"decimal": ",",
-	    "emptyTable":     "Não existe nenhuma operação registrada",
-	    "info":           "Exibindo _START_ até _END_ de _TOTAL_ operações",
-	    "infoEmpty":      "Exibindo 0 até 0 de 0 operações",
-	    "infoFiltered":   "(Filtrado de _MAX_ operações)",
-	    "thousands":      ".",
-	    "lengthMenu":     "Exibir _MENU_ operações",
-	    "loadingRecords": "Carregando...",
-	    "search":         "Buscar:",
-	    "zeroRecords":    "Nenhuma operação encontrada",
-	    "paginate": {
-	        "first":      "Primeira",
-	        "last":       "Última",
-	        "next":       "Próxima",
-	        "previous":   "Anterior"
-	    }}});
-</script>
     <a href="/form"><button class="btn btn-dark">Adicionar
         operação</button></a>
+<script src="js/script.js"></script>
 </body>
 </html>
