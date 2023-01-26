@@ -15,4 +15,9 @@ public class LoginController {
 	        return "addOperationForm";
 	}
 	
+	@GetMapping("/login")
+	public String login() {
+	        return "login";
+	}
+	
 }

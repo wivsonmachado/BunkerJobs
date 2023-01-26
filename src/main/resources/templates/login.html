@@ -18,7 +18,7 @@
 
 <body>  
     <center> <h1> Bunker Operation </h1> </center> 
-    <form action="/logar" method="post">
+    <form th:action="@{/login}" method="post">
         <div class="container"> 
             <label>Username : </label> 
             <input type="text" placeholder="Enter Username" name="username" required>
